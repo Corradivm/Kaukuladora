@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css.css">
+  <script src="index.js" defer></script>
+  <title>Calculadora</title>
+</head>
+<body>
+  <section class="calculator">
+    <div class="display">
+      <div id="output"></div>
+      <div id="input"></div>
+    </div>
+
+    <form class="buttons">
+      <!-- Números -->
+      <input type="button" value="1" id="one" onclick="displayControl(1)"></input>
+      <input type="button" value="2" id="two" onclick="displayControl(2)"></input>
+      <input type="button" value="3" id="three" onclick="displayControl(3)"></input>
+      <input type="button" value="4" id="four" onclick="displayControl(4)"></input>
+      <input type="button" value="5" id="five" onclick="displayControl(5)"></input>
+      <input type="button" value="6" id="six" onclick="displayControl(6)"></input>
+      <input type="button" value="7" id="seven" onclick="displayControl(7)"></input>
+      <input type="button" value="8" id="eight" onclick="displayControl(8)"></input>
+      <input type="button" value="9" id="nine" onclick="displayControl(9)"></input>
+      <input type="button" value="0" id="zero" onclick="displayControl(0)"></input>
+      <!-- Operadores -->
+      <input type="button" value="+" id="plus" onclick="displayControl('+')"></input>
+      <input type="button" value="-" id="minus" onclick="displayControl('-')"></input>
+      <input type="button" value="*" id="mult" onclick="displayControl('*')"></input>
+      <input type="button" value="/" id="divi" onclick="displayControl('/')"></input>
+      <input type="button" value="^" id="expo" onclick="displayControl('**')"></input>
+      <input type="button" value="=" id="equa" onclick="calc()"></input>
+      <!-- Controles -->
+      <input type="button" value="" id="dele" onclick="displayControl('del')"></input>
+      <input type="button" value="AC" id="rese" onclick="displayControl('reset')"></input>
+      <!-- Separador -->
+      <input type="button" value="(" id="pard" onclick="displayControl('(')"></input>
+      <input type="button" value=")" id="pare" onclick="displayControl(')')"></input>
+    </form>
+  </section>
+</body>
+</html>

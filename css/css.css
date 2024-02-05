@@ -1,0 +1,221 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100svh;
+}
+
+body {
+  margin: 0%;
+  background-color: hsl(228, 5%, 18%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator {
+  max-width: 450px;
+  width: 100%;
+  max-height: 500px;
+  height: 100%;
+  margin: 5%;
+  background-color: hsl(0, 0%, 46%);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 20px 15px rgba(0, 0, 0, 0.45);
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 30% 20% 50%;
+}
+
+div.display {
+  background-color: rgb(31, 31, 31);
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  border-radius: 10px;
+}
+
+div#output {
+  height: calc(72% - 20px);
+  width: 100%;
+  color: hsl(0, 0%, 100%);
+  margin: 10px 0px;
+  padding: 0px 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+div#output p {
+  margin: 1%;
+  padding: 1%;
+  color:hsl(0, 0% , 50%);
+  border-bottom: 1px solid hsl(0, 0% , 50%);
+  font-size: small;
+}
+
+div#output p:last-child {
+  color: hsl(0, 0%, 100%);
+  font-size: medium;
+}
+
+div#input {
+  max-width: 100%;
+  width: 100%;
+  height: 28%;
+  background-color: rgb(24, 24, 24);
+  border-radius: 0px 0px 10px 10px;
+  border: none;
+  outline: none;
+  padding: 20px;
+  color: hsl(0, 0%, 100%);
+  font-size: 1.3em;
+  display: flex;
+  align-items: flex-end;
+}
+
+.buttons {
+  padding: 10px;
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
+  grid-gap: 4px;
+}
+
+.buttons input {
+  cursor: pointer;
+  background-color: hsl(15, 100%, 60%);
+  border: none;
+  border-radius: 5px;
+  color: hsl(0, 0%, 0%);
+  font-weight: 400;
+  font-size: 16px;
+  transition: 0.05s;
+}
+
+.buttons input:hover {
+  background-color: hsl(15, 100%, 55%);
+}
+
+.buttons input:active {
+  transform: scale(0.95);
+}
+/* Posicionamento dos botões */
+  /* Números */
+input#one {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+input#two {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+input#three {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+input#four {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+input#five {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+input#six {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+input#seven {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
+
+input#eight {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+
+input#nine {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+}
+
+input#zero {
+  grid-column: 2 / 3;
+  grid-row: 4 / 5;
+}
+
+  /* Operadores */
+input#plus {
+  grid-column: 4 / 5;
+  grid-row: 2 / 3;
+}
+
+input#minus {
+  grid-column: 5 / 6;
+  grid-row: 2 / 3;
+}
+
+input#minus {
+  grid-column: 5 / 6;
+  grid-row: 2 / 3;
+}
+
+input#mult {
+  grid-column: 4 / 5;
+  grid-row: 3 / 4;
+}
+
+input#divi {
+  grid-column: 5 / 6;
+  grid-row: 3 / 4;
+}
+
+input#expo {
+  grid-column: 4 / 5;
+  grid-row: 4 / 5;
+}
+
+input#equa {
+  background-color: hsl(202, 100%, 50%);
+  grid-column: 5 / 6;
+  grid-row: 4 / 5;
+}
+
+  /* Controles */
+input#dele {
+  background-image: url('delete.svg');
+  background-position: 44%;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-color: hsl(0, 100%, 55%);
+  grid-column: 4 / 5;
+  grid-row: 1 / 2;
+}
+
+input#rese {
+  background-color: hsl(0, 100%, 50%);
+  font-weight: bold;
+  grid-column: 5 / 6;
+  grid-row: 1 / 2;
+}
+/* Separadores */
+input#pard {
+  grid-column: 1 / 2;
+  grid-row: 4 / 5;
+}
+
+input#pare {
+  grid-column: 3 / 4;
+  grid-row: 4 / 5;
+}
+/* Finalização do posicionamento */
