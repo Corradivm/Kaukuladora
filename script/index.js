@@ -11,10 +11,10 @@ function displayControl(n) {
     return;
   }
   // limite
-  if (input.innerHTML.length >= 16) { 
+  if (input.innerHTML.length >= 21) { 
     output.innerHTML += '<p>Number of character limits reached!</p>'; 
     return; }
-  input.innerHTML += `${n}`
+  input.innerHTML += n
 }
 
 function calc() {
@@ -29,18 +29,18 @@ function calc() {
   }
 }
 
-document.addEventListener('keydown', (e) => {
-  let key = e.key
-  console.log(key)
+window.addEventListener('keydown', e => {
+  const key = e.key;
+  const regExp = /[1234567890*+-./]/i
   
-  if (key.match(/[0-9]/).length == 1) {
-    return displayControl(key);;
-  } else {
+  if (key === 'Enter') {
+    calc()
+    return;
+  } else if (key === 'Backspace') {
+    displayControl('del')
+    return;
+  } else if(!key.match(regExp) || key.length != 1) {
     return;
   }
-}) 
-
-/*
- Quando tento colocar outras expressões como [/+-*] para a calculadora receber os operadores o console retorna: "key.match() is null".
- Solucionar isso mais tarde!
-*/
+  displayControl(key.toString())
+})
