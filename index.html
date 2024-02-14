@@ -1,45 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/css.css">
-  <script src="script/index.js" defer></script>
-  <title>Calculadora</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+  <title>Calculadora 2.0</title>
 </head>
-<body>
-  <section class="calculator">
-    <div class="display">
-      <div id="output"></div>
-      <div id="input"></div>
-    </div>
-
-    <form class="buttons">
-      <!-- Números -->
-      <input type="button" value="1" id="one" onclick="displayControl(1)"></input>
-      <input type="button" value="2" id="two" onclick="displayControl(2)"></input>
-      <input type="button" value="3" id="three" onclick="displayControl(3)"></input>
-      <input type="button" value="4" id="four" onclick="displayControl(4)"></input>
-      <input type="button" value="5" id="five" onclick="displayControl(5)"></input>
-      <input type="button" value="6" id="six" onclick="displayControl(6)"></input>
-      <input type="button" value="7" id="seven" onclick="displayControl(7)"></input>
-      <input type="button" value="8" id="eight" onclick="displayControl(8)"></input>
-      <input type="button" value="9" id="nine" onclick="displayControl(9)"></input>
-      <input type="button" value="0" id="zero" onclick="displayControl(0)"></input>
-      <!-- Operadores -->
-      <input type="button" value="+" id="plus" onclick="displayControl('+')"></input>
-      <input type="button" value="-" id="minus" onclick="displayControl('-')"></input>
-      <input type="button" value="*" id="mult" onclick="displayControl('*')"></input>
-      <input type="button" value="/" id="divi" onclick="displayControl('/')"></input>
-      <input type="button" value="^" id="expo" onclick="displayControl('**')"></input>
-      <input type="button" value="=" id="equa" onclick="calc()"></input>
-      <!-- Controles -->
-      <input type="button" value="" id="dele" onclick="displayControl('del')"></input>
-      <input type="button" value="AC" id="rese" onclick="displayControl('reset')"></input>
-      <!-- Separador -->
-      <input type="button" value="(" id="pard" onclick="displayControl('(')"></input>
-      <input type="button" value=")" id="pare" onclick="displayControl(')')"></input>
-    </form>
-  </section>
+<body class="h-screen bg-neutral-100 dark:bg-slate-800 flex justify-center items-center">
+  <main class="drop-shadow-2xl m-2 p-5 bg-neutral-400 dark:bg-zinc-600 rounded-xl border-b-4 border-neutral-600 dark:border-zinc-800" style="width:21rem;height:26rem;">
+    <section id="display" class="whitespace-nowrap overflow-x-hidden px-4 w-full h-1/3 bg-neutral-600 dark:bg-zinc-800 rounded-lg border-t-2 border-neutral-700 dark:border-zinc-950 text-neutral-200 text-4xl flex items-center justify-end"></section>
+    
+    <section class="pt-4 h-4/6 grid grid-cols-5 grid-rows-4 gap-2">
+      <!-- Numbers -->
+      <button class="btn-orange col-start-2 col-end-3 row-start-4 row-end-5" onclick="inputFunction('0')">0</button>
+      <button class="btn-orange col-start-1 col-end-2 row-start-1 row-end-2" onclick="inputFunction('1')">1</button>
+      <button class="btn-orange col-start-2 col-end-3 row-start-1 row-end-2" onclick="inputFunction('2')">2</button>
+      <button class="btn-orange col-start-3 col-end-4 row-start-1 row-end-2" onclick="inputFunction('3')">3</button>
+      <button class="btn-orange col-start-1 col-end-2 row-start-2 row-end-3" onclick="inputFunction('4')">4</button>
+      <button class="btn-orange col-start-2 col-end-3 row-start-2 row-end-3" onclick="inputFunction('5')">5</button>
+      <button class="btn-orange col-start-3 col-end-4 row-start-2 row-end-3" onclick="inputFunction('6')">6</button>
+      <button class="btn-orange col-start-1 col-end-2 row-start-3 row-end-4" onclick="inputFunction('7')">7</button>
+      <button class="btn-orange col-start-2 col-end-3 row-start-3 row-end-4" onclick="inputFunction('8')">8</button>
+      <button class="btn-orange col-start-3 col-end-4 row-start-3 row-end-4" onclick="inputFunction('9')">9</button>
+      <!-- Operators -->
+      <button class="btn-green col-start-4 col-end-5 row-start-2 row-end-3" onclick="inputFunction('+')">+</button>
+      <button class="btn-green col-start-5 col-end-6 row-start-2 row-end-3" onclick="inputFunction('-')">-</button>
+      <button class="btn-green col-start-4 col-end-5 row-start-3 row-end-4" onclick="inputFunction('*')">*</button>
+      <button class="btn-green col-start-5 col-end-6 row-start-3 row-end-4" onclick="inputFunction('/')">/</button>
+      <button class="btn-green col-start-4 col-end-5 row-start-4 row-end-5" onclick="inputFunction('**')">**</button>
+      <!-- Controls -->
+      <button class="btn-red col-start-4 col-end-5 row-start-1 row-end-2" onclick="inputFunction('AC')">AC</button>
+      <button class="del-btn btn-red col-start-5 col-end-6 row-start-1 row-end-2" onclick="inputFunction('DEL')"></button>
+      <button class="btn-blue col-start-5 col-end-6 row-start-4 row-end-5" onclick="calculate()">=</button>
+      <button class="btn-gray col-start-1 col-end-2 row-start-4 row-end-5" onclick="inputFunction('(')">()</button>
+      <button class="btn-gray col-start-3 col-end-4 row-start-4 row-end-5" onclick="inputFunction('.')">.</button>
+    </section>
+  </main>
 </body>
 </html>
