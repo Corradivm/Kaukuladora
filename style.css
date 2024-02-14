@@ -922,8 +922,8 @@ video {
 }
 
 .del-btn {
-  background-image: url('svg/delete.svg');
+  background-image: url('svg/delete-white.svg');
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: 30%;
   background-size: 90%;
 }
