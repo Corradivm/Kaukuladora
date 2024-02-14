@@ -193,7 +193,7 @@ input#equa {
 
   /* Controles */
 input#dele {
-  background-image: url('../svg/delete.svg');
+  background-image: url('svg/delete.svg');
   background-position: 44%;
   background-repeat: no-repeat;
   background-size: 50%;
