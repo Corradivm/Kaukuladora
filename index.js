@@ -3,6 +3,7 @@ function inputFunction(n) {
   const input = n;
   const lastInput = display.innerHTML.slice(display.innerHTML.length - 1);
   const regExp = /[+*/.-]/;
+  const bracketsBtn = document.getElementById('brackets');
 
   if (input == 'DEL') {
     display.innerHTML = display.innerHTML.slice(0, display.innerHTML.length - 1);
@@ -16,6 +17,12 @@ function inputFunction(n) {
     display.innerHTML = display.innerHTML.slice(0, display.innerHTML.length - 1);
     display.innerHTML += input;
     return;
+  } 
+  
+  if (input == '(' ) {
+    bracketsBtn.setAttribute("onclick", "inputFunction(')')")
+  } else if (input == ')') {
+    bracketsBtn.setAttribute("onclick", "inputFunction('(')")
   }
   
   display.innerHTML  += input;
