@@ -940,3 +940,10 @@ video {
     background-color: rgb(39 39 42 / var(--tw-bg-opacity));
   }
 }
+
+.del-btn {
+  background-image: url('svg/delete-white.svg');
+  background-repeat: no-repeat;
+  background-position: 40%;
+  background-size: 70%;
+}
