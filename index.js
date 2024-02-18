@@ -2,15 +2,15 @@ function validateInput(n, order) {
   let cmd = 0;
   const input = n;
   const lastInput = display.innerHTML.slice(display.innerHTML.length - 1);
-  const regExp = /[+*/.-]/
+  const opExp = /[+*/.-]/
   const operatorsExp1 = /[+-]/;
   const operatorsExp2 = /[/*]/;
   const bracketsBtn = document.getElementById('brackets');
 
   if (input == '(') {
-    bracketsBtn.setAttribute("onclick", "validateInput(')')")
+    bracketsBtn.setAttribute("onclick", "validateInput(')')");
   } else if (input == ')') {
-    bracketsBtn.setAttribute("onclick", "validateInput('(')")
+    bracketsBtn.setAttribute("onclick", "validateInput('(')");
   }
   
   if (order == 1) {
@@ -18,29 +18,33 @@ function validateInput(n, order) {
     displayInput(cmd, input)
     resetAll()
     return;
+  } else if (order == 2) {
+    resetAll()
   }
 
   if (input == 'DEL') {
-    cmd = 'DEL'
+    cmd = 'DEL';
     displayInput(cmd)
     return;
   }
   if (input == 'AC') {
-    cmd = 'AC'
+    cmd = 'AC';
     displayInput(cmd)
     return;
   }
+
   if ((lastInput.match(operatorsExp2) && input.match(operatorsExp2)) || (lastInput.match(operatorsExp1) && input.match(operatorsExp1))) {
-    cmd = 3
+    cmd = 3;
     displayInput(cmd, input)
     return;
   }
   if ((lastInput.match(operatorsExp1) && input.match(operatorsExp2)) ) {
     return;
   }
-  if ((input == lastInput && lastInput.match(regExp)) || (lastInput == '(' && input == ')')) {
+  if ((input == lastInput && lastInput.match(opExp)) || (lastInput == '(' && input == ')')) {
     return;
   }
+
   displayInput(cmd, input)
 }
 
@@ -65,13 +69,21 @@ function displayInput(cmd, input) {
 }
 
 function getAndcalc() {
-  let operation = document.getElementById('display').innerHTML;
+  const display = document.getElementById('display');
+
+  let operation = display.innerHTML;
   let part1, part2;
-  const regExp = /[1234567890]/
+  const numExp = /[1234567890]/;
+  const opExp = /[+*/.-]/;
   const openBracket = operation.search(/[(]/);
   const beforeBracket = openBracket - 1;
+  const lastInput = display.innerHTML.slice(display.innerHTML.length - 1);
 
-  if (Boolean(operation.slice(openBracket - 1, openBracket).match(regExp)) == true) {
+  if (lastInput.match(opExp)) {
+    return;
+  }
+
+  if (Boolean(operation.slice(openBracket - 1, openBracket).match(numExp)) == true) {
     part1 = operation.slice(0, beforeBracket + 1);
     part2 = operation.slice(beforeBracket + 1);
     operation = part1 + '*' + part2;
@@ -79,49 +91,63 @@ function getAndcalc() {
 
   const calc = new Function('return ' + operation)();
 
-  if (calc.toString().length > 18) {
+  if (calc.toFixed(2).toString() > 13) {
+    console.log(calc.toString().length)
+
     display.innerHTML = 'I cant display it!'
     setTimeout(() => display.innerHTML = '', 2000)
     return;
   }
-  
-  display.innerHTML = calc;
+
   setOrder()
+  display.innerHTML = calc.toFixed(2);
 }
 
 function setOrder() {
-  for (let i = 0; i < 10; i++) {
-    document.getElementsByTagName('button')[i].setAttribute("onclick", `validateInput('${i}', 1)`)
+  const opContainer = ['+', '-', '*', '/', '**', 'AC'];
+  const button = document.getElementsByTagName('button');
+  let i, c;
+
+  for (i = 0; i < 10; i++) {
+    button[i].setAttribute("onclick", `validateInput('${i}', 1)`)
+  }
+  for (i = 10, c = 0; i < 16, c < 6; i++, c++) {
+    button[i].setAttribute("onclick", `validateInput('${opContainer[c]}', 2)`)
   }
 }
 
 function resetAll() {
-  for (let i = 0; i < 10; i++) {
-    document.getElementsByTagName('button')[i].setAttribute("onclick", `validateInput('${i}')`)
+  const opContainer = ['+', '-', '*', '/', '**', 'DEL'];
+  const button = document.getElementsByTagName('button');
+  let i, c;
+
+  for (i = 0; i < 10; i++) {
+    button[i].setAttribute("onclick", `validateInput('${i}')`);
+  }
+  for (i = 10, c = 0; i < 16, c < 6; i++, c++) {
+    button[i].setAttribute("onclick", `validateInput('${opContainer[c]}')`);
   }
 }
 
 window.addEventListener('keydown', e => {
   const key = e.key;
-  const regExp = /[1234567890+-/*.]/;
-  let input = key.toString()
-  console.log(key)
+  const keyExp = /[1234567890()+-/*.]/;
+  let input = key.toString();
   
-  if (key == 'Escape') {
+  if (key == 'r' || key == 'R') {
     input = 'AC'
     validateInput(input)
     return;
   }
   if (key == 'Backspace') {
     input = 'DEL';
-    setOrder()
     validateInput(input)
   }
   if (key == 'Enter') {
     getAndcalc()
     return;
   }
-  if (key.match(regExp) && key.length == 1) {
+  if (key.match(keyExp) && key.length == 1) {
     input = key.toString()
     validateInput(input)
   } 
