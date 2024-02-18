@@ -91,7 +91,7 @@ function getAndcalc() {
 
   const calc = new Function('return ' + operation)();
 
-  if (calc.toFixed(2).toString() > 13) {
+  if (calc.toFixed(2).toString().length > 13) {
     console.log(calc.toString().length)
 
     display.innerHTML = 'I cant display it!'
