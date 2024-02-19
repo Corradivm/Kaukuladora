@@ -73,6 +73,7 @@ function getAndcalc() {
 
   let operation = display.innerHTML;
   let part1, part2;
+  let calc = new Function('return ' + operation)();
   const numExp = /[1234567890]/;
   const opExp = /[+*/.-]/;
   const openBracket = operation.search(/[(]/);
@@ -89,9 +90,11 @@ function getAndcalc() {
     operation = part1 + '*' + part2;
   }
 
-  const calc = new Function('return ' + operation)();
+  if (calc % 1 != 0) {
+    calc = calc.toFixed(2);
+  }
 
-  if (calc.toFixed(2).toString().length > 13) {
+  if (calc.toString().length > 13) {
     console.log(calc.toString().length)
 
     display.innerHTML = 'I cant display it!'
@@ -100,7 +103,7 @@ function getAndcalc() {
   }
 
   setOrder()
-  display.innerHTML = calc.toFixed(2);
+  display.innerHTML = calc;
 }
 
 function setOrder() {
