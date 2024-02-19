@@ -73,7 +73,6 @@ function getAndcalc() {
 
   let operation = display.innerHTML;
   let part1, part2;
-  let calc = new Function('return ' + operation)();
   const numExp = /[1234567890]/;
   const opExp = /[+*/.-]/;
   const openBracket = operation.search(/[(]/);
@@ -89,6 +88,8 @@ function getAndcalc() {
     part2 = operation.slice(beforeBracket + 1);
     operation = part1 + '*' + part2;
   }
+
+  let calc = new Function('return ' + operation)();
 
   if (calc % 1 != 0) {
     calc = calc.toFixed(2);
