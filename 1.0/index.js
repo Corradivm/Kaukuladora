@@ -11,9 +11,10 @@ function displayControl(n) {
     return;
   }
   // limite
-  if (input.innerHTML.length >= 21) { 
+  if (input.innerHTML.length >= 21) {
     output.innerHTML += '<p>Number of character limits reached!</p>'; 
-    return; }
+    return;
+  }
   input.innerHTML += n
 }
 
