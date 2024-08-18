@@ -4,7 +4,7 @@
 
 ![Trabalhando nisso...](./fotos/preview-ver3.jpg)
 
-[Kalkuladora (versão 3.0)](https://corradivm.github.io/kaukuladora/)
+[Kaukuladora (versão 3.0)](https://corradivm.github.io/kaukuladora/)
 
 ### Em progresso...
 
@@ -18,7 +18,7 @@
 
 ![Preview Versão 2](./fotos/preview-ver2.jpg)
 
-[Kalkuladora (versão 2.0)](https://corradivm.github.io/kaukuladora/2.0)
+[Kaukuladora (versão 2.0)](https://corradivm.github.io/kaukuladora/2.0)
 
 ### Melhorias
 
@@ -38,7 +38,7 @@
 
 ![Preview Versão 1](./fotos/preview-ver1.png)
 
-[Kalkuladora (versão 1.0)](https://corradivm.github.io/kaukuladora/1.0)
+[Kaukuladora (versão 1.0)](https://corradivm.github.io/kaukuladora/1.0)
 
 ### Ferramentas utilizadas:
 
