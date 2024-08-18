@@ -318,11 +318,3 @@ document.querySelectorAll('.main-btns-container button').forEach(button => {
 document.querySelectorAll('.btns-container button').forEach(button => {
   button.addEventListener('click', () => inputHandler(button.value) );
 });
-
-// Add controls with the arrows
-// In the future add a manual on the html page
-// And add a option to the user change background color
-// Allow horizontal scroll
-// Prevent '+++++' and similar situations
-// Parenthesis malfunction with trig functions
-// When user click 'Enter' to input some like '-', the input pass as 'Enter-'

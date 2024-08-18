@@ -1,10 +1,24 @@
 # Calculadora
 
+## Versão 3.0
+
+![Trabalhando nisso...](./fotos/preview-ver2.jpg)
+
+[Kalkuladora (versão 3.0)](https://corradivm.github.io/kaukuladora/)
+
+### Em progresso...
+
+### Ferramentas utilizadas:
+
+- HTML
+- CSS
+- JavaScript
+
 ## Versão 2.0
 
 ![Preview Versão 2](./fotos/preview-ver2.jpg)
 
-[Calculadora (versão 2.0)](https://corradivm.github.io/calculadora-simples/)
+[Kalkuladora (versão 2.0)](https://corradivm.github.io/kaukuladora/2.0)
 
 ### Melhorias
 
@@ -24,7 +38,7 @@
 
 ![Preview Versão 1](./fotos/preview-ver1.png)
 
-[Calculadora (versão 1.0)](https://corradivm.github.io/calculadora-simples/1.0)
+[Kalkuladora (versão 1.0)](https://corradivm.github.io/kaukuladora/1.0)
 
 ### Ferramentas utilizadas:
 
