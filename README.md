@@ -2,7 +2,7 @@
 
 ## Versão 3.0
 
-![Trabalhando nisso...](./fotos/preview-ver2.jpg)
+![Trabalhando nisso...](./fotos/preview-ver3.jpg)
 
 [Kalkuladora (versão 3.0)](https://corradivm.github.io/kaukuladora/)
 
