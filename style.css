@@ -40,7 +40,8 @@ main {
   justify-content: end;
   align-items: center;
   color: hsl(0, 100%, 95%);
-  font-size: 1.5em;
+  font-size: 2em;
+  font-family: monospace;
 }
 
 #error-display {

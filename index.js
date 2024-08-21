@@ -1,3 +1,4 @@
+/* JS calculator */
 // Parenthesis configuration
 // This will give the values to display the brackets correctly,
 // since the interface has only one button for '(' and ')'
@@ -7,8 +8,7 @@ const configP = {
   parenCount: 0,
   toClose: false,
   correct() {
-    const element = document.getElementById('par');
-    
+    const element = document.getElementById('par');   
     element.value = this.activeParen;
   }
 }
@@ -57,6 +57,7 @@ function displayHandler(output) {
 
   // If output is a string or an action:
   switch (output) {
+    // Deletes the last character from the calculator display:
     case 'Backspace':
       const value = display.innerHTML;
       const newValue = value.slice(0, value.length-1);
@@ -89,21 +90,40 @@ function displayHandler(output) {
 }
 
 function evalInput(input) {
-  const inputRegex = /[0123456789+\-*\/\(\)\^×÷%]|π|e|Delete|Backspace/;
-  const inputFRegex = /sin\s+\(|cos\s+\(|tan\s+\(|ln\s+\(|log2\s+\(|log10\s+\(/;
-  const f = /f/i; // Prevents entries like 'F5' from being considered
+  const displayInner = document.getElementById('main-display').innerHTML;
+  const lastEntry = displayInner.slice(displayInner.length - 1, displayInner.length);
+  const actions = /Delete|Backspace/;
+  const numbers = /[0123456789]/;
+  const constants = /π|e/;
+  const operators = /[+\-*\/\(\)\^×÷%.]/;
+  const fRegex = /sin\s+\(|cos\s+\(|tan\s+\(|ln\s+\(|log2\s+\(|log10\s+\(/;
   const numRange = /[0-9]|e|π/;
+  const f = /f/i; // Prevents entries like 'F5' from being considered
+  
+  if (
+    !numbers.test(input) &&
+    !fRegex.test(input) &&
+    lastEntry.includes(input)
+  ) {
+    // Prevents '++++++++'
+    return;
+  } else if (
+      (operators.test(lastEntry) ||
+      constants.test(lastEntry)) && 
+      lastEntry.includes(input)
+    ) {
+    // Prevents '-+^+-^' and 'eeeeee'
+    return;
+  }
 
-  // Parenthesis control
+  // Parenthesis control:
   if (input === '(') {
     configP.parenCount += 1;
   }
 
   if (input === ')' && !(configP.parenCount === 0)) {
     configP.parenCount -= 1;
-  } 
-  else if (input === ')' && configP.parenCount === 0) 
-  {
+  } else if (input === ')' && configP.parenCount === 0) {
     const buffer1 = configP.activeParen;
     const buffer2 = configP.restParen;
 
@@ -125,14 +145,18 @@ function evalInput(input) {
     configP.correct();
   }
 
-  // Evaluates and pass to displayHandler()
-  if (inputFRegex.test(input) && !f.test(input)) {
-		displayHandler(input);
-		configP.parenCount += 1;
-		
-		console.log(configP.parenCount); // To delete
-		
-	} else if (inputRegex.test(input) && !f.test(input)) {
+  // Evaluates the input and pass to displayHandler():
+  if (fRegex.test(input) && !f.test(input)) {
+    configP.parenCount += 1;
+    displayHandler(input);
+
+  } else if (
+     (actions.test(input) ||
+      numbers.test(input) ||
+      constants.test(input) ||
+      operators.test(input)) &&
+     !f.test(input)
+  ) {
     displayHandler(input);
   } 
 }
@@ -143,18 +167,15 @@ function calculator() {
   
   errorDisplay.innerHTML = '';
 
-  // Evaluates the expression before calculating it
+  // Evaluates the expression and then calculates it:
   try {
-
     expr = evalExpr(expr);
-    console.log(expr); // To delete
+    console.log(expr)
     const calculation = new Function('return ' + expr);
     const result = calculation();
 
     return result;
-  }
-  catch (error)
-  {
+  } catch (error) {
     if (error.name === 'SyntaxError') {
       error.message = 'Format error';
     }
@@ -168,21 +189,18 @@ function evalExpr(expr) {
   const zeroPwZero = /(0\*\*0)|(0\^0)/;
 
   try {
-    if(diviByZero.test(expr))
-    {
+    if(diviByZero.test(expr)) {
       throw new Error('Cannot divide by zero');
     }
-    else if (zeroPwZero.test(expr)) 
-    {
+    else if (zeroPwZero.test(expr)) {
       throw new Error('0^0 is ambiguous');
     }
   }
-  catch (error)
-  {
+  catch (error) {
     throw error;
   }
 
-  // Converts characters before the calculation
+  // Converts characters before the calculation:
   if (/\^/.test(expr)) {
     expr = expr.replaceAll(/\^/g, '**');
   }
@@ -198,86 +216,28 @@ function evalExpr(expr) {
   if (/%/.test(expr)) {
     expr = expr.replaceAll(/%/g, '/100');
   }
-  
-  // Converts contants symbols before calculation
-  if (/e/.test(expr)) {
-	  expr = expr.replaceAll(/e/g, 'Math.E');
-	}
-	
-	if (/π/.test(expr)) {
-	  expr = expr.replaceAll(/π/g, 'Math.PI');
-	}
 
-  // If 9(5) => 9*(5), if (5)9 => (5)*9 and if (9+2)(3-1) => (9+2)*(3-1)
-  // For '(' cases
-  if (/9\(/.test(expr)) {
-    expr = expr.replaceAll(/9\(/g, '9*(');
-  } 
-  if (/8\(/.test(expr)) {
-    expr = expr.replaceAll(/8\(/g, '8*(');
+  // 9(5) => 9*(5), (5)9 => (5)*9 and if (9+2)(3-1) => (9+2)*(3-1)
+  // For '(' cases:
+  for (let i = 0; i < 10; ++i) {
+    if (expr.includes(`${i}(`)) {
+      expr = expr.replaceAll(`${i}(`, `${i}*(`);
+    }
   }
-  if (/7\(/.test(expr)) {
-    expr = expr.replaceAll(/7\(/g, '7*(');
-  } 
-  if (/6\(/.test(expr)) {
-    expr = expr.replaceAll(/6\(/g, '6*(');
-  } 
-  if (/5\(/.test(expr)) {
-    expr = expr.replaceAll(/5\(/g, '5*(');
+
+  // For ')' cases:
+  for (let i = 0; i < 10; ++i) {
+    if (expr.includes(`)${i}`)) {
+      expr = expr.replaceAll(`)${i}`, `)*${i}`);
+    }
   }
-  if (/4\(/.test(expr)) {
-    expr = expr.replaceAll(/4\(/g, '4*(');
-  }
-  if (/3\(/.test(expr)) {
-    expr = expr.replaceAll(/3\(/g, '3*(');
-  }
-  if (/2\(/.test(expr)) {
-    expr = expr.replaceAll(/2\(/g, '2*(');
-  }
-  if (/1\(/.test(expr)) {
-    expr = expr.replaceAll(/1\(/g, '1*(');
-  }
-  if (/0\(/.test(expr)) {
-    expr = expr.replaceAll(/0\(/g, '0*(');
-  }
-  
-  // For ')' cases
-  if (/\)9/.test(expr)) {
-    expr = expr.replaceAll(/\)9/g, ')*9');
-  }
-  if (/8\(/.test(expr)) {
-    expr = expr.replaceAll(/8\(/g, '8*(');
-  }
-  if (/7\(/.test(expr)) {
-    expr = expr.replaceAll(/7\(/g, '7*(');
-  }
-  if (/6\(/.test(expr)) {
-    expr = expr.replaceAll(/6\(/g, '6*(');
-  }
-  if (/5\(/.test(expr)) {
-    expr = expr.replaceAll(/5\(/g, '5*(');
-  }
-  if (/4\(/.test(expr)) {
-    expr = expr.replaceAll(/4\(/g, '4*(');
-  }
-  if (/3\(/.test(expr)) {
-    expr = expr.replaceAll(/3\(/g, '3*(');
-  }
-  if (/2\(/.test(expr)) {
-    expr = expr.replaceAll(/2\(/g, '2*(');
-  }
-  if (/1\(/.test(expr)) {
-    expr = expr.replaceAll(/1\(/g, '1*(');
-  }
-  if (/0\(/.test(expr)) {
-    expr = expr.replaceAll(/0\(/g, '0*(');
-  }
-  // For ')(' cases
+
+  // For ')(' cases:
   if (/\)\(/.test(expr)) {
     expr = expr.replaceAll(/\)\(/g, ')*(');
   }
   
-  // Converts functions before calculation
+  // Converts functions before calculation:
   if (/sin\s\(/.test(expr)) {
     expr = expr.replaceAll(/sin\s\(/g, 'Math.sin((Math.PI / 180) *');
   }
@@ -302,12 +262,52 @@ function evalExpr(expr) {
     expr = expr.replaceAll(/log10\s\(/g, 'Math.log10(');
   }
 
+  // 23log10 (10) => 23*log10 (10)
+  for (let i = 0; i < 10; ++i) {
+    if (expr.includes(`${i}Math`)) {
+      expr = expr.replaceAll(`${i}Math`, `${i}*Math`);
+    }
+  }
+  
+  // If e3 => e*3, 2π => 2*π
+  // Converts contants symbols before calculation:
+  if (/e/.test(expr)) {
+    for (let i = 0; i < 10; ++i) {
+      if (expr.includes(`${i}e`)) {
+        expr = expr.replaceAll(`${i}e`, `${i}*e`);
+      }
+    }
+
+    for (let i = 0; i < 10; ++i) {
+      if (expr.includes(`e${i}`)) {
+        expr = expr.replaceAll(`e${i}`, `e*${i}`);
+      }
+    }
+
+    expr = expr.replaceAll(/e/g, 'Math.E');
+  }
+
+  if (/π/.test(expr)) {
+    for (let i = 0; i < 10; ++i) {
+      if (expr.includes(`${i}π`)) {
+        expr = expr.replaceAll(`${i}π`, `${i}*π`);
+      }
+    }
+
+    for (let i = 0; i < 10; ++i) {
+      if (expr.includes(`π${i}`)) {
+        expr = expr.replaceAll(`π${i}`, `π*${i}`);
+      }
+    }
+
+    expr = expr.replaceAll(/π/g, 'Math.PI');
+  }
+
   return expr;
 }
 
 document.addEventListener('keydown', e => {
   const key = e.key;
-
   inputHandler(key);
 });
 
